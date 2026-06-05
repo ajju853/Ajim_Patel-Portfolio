@@ -5,26 +5,6 @@ import { PERSONAL_INFO, WORK_EXPERIENCE_LIST, EDUCATION_LIST } from "../data";
 import { generateResumePDF } from "../utils/resumeGenerator";
 
 export default function ResumePreview() {
-  const [viewMode, setViewMode] = useState<"web" | "pdf">("web");
-  const [pdfDataUri, setPdfDataUri] = useState<string>("");
-  const [isRendering, setIsRendering] = useState(false);
-
-  useEffect(() => {
-    if (viewMode === "pdf") {
-      setIsRendering(true);
-      const timer = setTimeout(() => {
-        try {
-          setPdfDataUri("/api/resume-pdf-view");
-        } catch (error) {
-          console.error("Failed to set preview route:", error);
-        } finally {
-          setIsRendering(false);
-        }
-      }, 250);
-      return () => clearTimeout(timer);
-    }
-  }, [viewMode]);
-
   const handleDownload = () => {
     generateResumePDF(false);
   };
@@ -50,42 +30,15 @@ export default function ResumePreview() {
           </h2>
           <div className="w-16 h-1 bg-[#C5A85C] mx-auto mt-4 rounded" />
           <p className="text-sm text-[#0B192C]/70 dark:text-[#FAF9F6]/60 mt-4 max-w-xl mx-auto">
-            Toggle between the live web-optimized version or view the exact high-fidelity printed PDF layout designed for global systems teams.
+            View the interactive, web-optimized resume or download the exact high-fidelity printed PDF layout designed for global systems teams.
           </p>
         </div>
 
-        {/* View Mode Switcher and Control Bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white dark:bg-[#112235] p-4 rounded-2xl border border-[#0B192C]/5 dark:border-white/10 shadow-lg mb-8">
-          <div className="flex items-center bg-[#FAF9F6] dark:bg-[#0B1E33] p-1.5 rounded-xl border border-[#0B192C]/5 dark:border-white/5 w-full sm:w-auto">
-            <button
-              onClick={() => setViewMode("web")}
-              className={`flex-1 sm:flex-initial px-5 py-2.5 rounded-lg text-xs font-display font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-2 ${
-                viewMode === "web"
-                  ? "bg-[#0B192C] text-[#C5A85C] shadow"
-                  : "text-[#0B192C]/80 dark:text-[#FAF9F6]/80 hover:bg-[#0B192C]/5 dark:hover:bg-white/5"
-              }`}
-              id="btn-resume-web-mode"
-            >
-              <Layers className="w-3.5 h-3.5" />
-              Web View
-            </button>
-            <button
-              onClick={() => setViewMode("pdf")}
-              className={`flex-1 sm:flex-initial px-5 py-2.5 rounded-lg text-xs font-display font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-2 ${
-                viewMode === "pdf"
-                  ? "bg-[#0B192C] text-[#C5A85C] shadow"
-                  : "text-[#0B192C]/80 dark:text-[#FAF9F6]/80 hover:bg-[#0B192C]/5 dark:hover:bg-white/5"
-              }`}
-              id="btn-resume-pdf-mode"
-            >
-              <FileText className="w-3.5 h-3.5" />
-              PDF Preview
-            </button>
-          </div>
-
+        {/* Control Bar with Download Button */}
+        <div className="flex justify-end mb-8">
           <button
             onClick={handleDownload}
-            className="w-full sm:w-auto px-5 py-3 group bg-[#FFFDF9] hover:bg-[#0b192c] text-[#0B192C] hover:text-[#FAF9F6] border border-[#C5A85C]/30 hover:border-[#112235] rounded-xl font-display text-xs font-black uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow hover:shadow-lg"
+            className="w-full sm:w-auto px-5 py-3 group bg-[#FFFDF9] dark:bg-[#112235] hover:bg-[#0b192c] dark:hover:bg-[#FAF9F6] text-[#0B192C] dark:text-[#FAF9F6] hover:text-[#FAF9F6] dark:hover:text-[#0b192c] border border-[#C5A85C]/30 hover:border-[#112235] rounded-xl font-display text-xs font-black uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow hover:shadow-lg"
             id="btn-resume-download"
           >
             <Download className="w-4 h-4 text-[#C5A85C]" />
@@ -95,17 +48,10 @@ export default function ResumePreview() {
 
         {/* Content Panel Area */}
         <div className="relative min-h-[600px] rounded-3xl overflow-hidden shadow-2xl border border-[#0B192C]/5 dark:border-white/10 bg-white dark:bg-[#112235] p-2">
-          <AnimatePresence mode="wait">
-            {viewMode === "web" ? (
-              <motion.div
-                key="web-resume"
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.35, ease: "easeOut" }}
-                className="p-6 md:p-10 space-y-10 text-left"
-                id="web-resume-container"
-              >
+          <div
+            className="p-6 md:p-10 space-y-10 text-left"
+            id="web-resume-container"
+          >
                 {/* Header info */}
                 <div className="border-b border-[#0B192C]/5 dark:border-white/10 pb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                   <div>
@@ -253,44 +199,7 @@ export default function ResumePreview() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
-            ) : (
-              <motion.div
-                key="pdf-resume"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="w-full h-[750px] relative flex flex-col items-center justify-center bg-zinc-900 border border-zinc-800 rounded-2xl"
-                id="pdf-container-box"
-              >
-                {isRendering ? (
-                  <div className="flex flex-col items-center justify-center gap-4 text-[#C5A85C]">
-                    <RefreshCw className="w-10 h-10 animate-spin" />
-                    <span className="font-mono text-xs tracking-widest uppercase animate-pulse">
-                      Generating Interactive PDF Preview...
-                    </span>
-                  </div>
-                ) : (
-                  <>
-                    <iframe
-                      src={`${pdfDataUri}#toolbar=0&navpanes=0&scrollbar=0`}
-                      title="Ajim Patel Live Resume PDF Preview"
-                      className="w-full h-full rounded-2xl border-0 shadow-inner bg-zinc-950"
-                      referrerPolicy="no-referrer"
-                      id="resume-pdf-iframe"
-                    />
-                    
-                    {/* Embedded overlay warning block for mobile viewports */}
-                    <div className="absolute bottom-4 right-4 bg-[#0B192C]/90 backdrop-blur border border-[#C5A85C]/30 text-[#FAF9F6] p-3 rounded-xl shadow-2xl max-w-xs text-left pointer-events-auto md:hidden">
-                      <p className="text-[11px] font-sans leading-normal">
-                        Some mobile browsers restrict rendering PDF frames. Use the top<strong>"Download PDF CV"</strong> button to easily read or print the fully rendered PDF structure!
-                      </p>
-                    </div>
-                  </>
-                )}
-              </motion.div>
-            )}
-          </AnimatePresence>
+              </div>
         </div>
       </div>
     </section>
