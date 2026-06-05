@@ -17,7 +17,7 @@ export default function Landing() {
         }
         return {};
       })
-      .then((data) => {
+      .then((data: any) => {
         if (data?.formalUrl) {
           setLogoUrl(data.formalUrl);
         } else if (data?.casualUrl) {

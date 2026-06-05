@@ -41,7 +41,7 @@ export default function Navigation({ activeSection }: NavigationProps) {
         }
         return {};
       })
-      .then((data) => {
+      .then((data: any) => {
         if (data?.formalUrl) {
           setLogoUrl(data.formalUrl);
         } else if (data?.casualUrl) {

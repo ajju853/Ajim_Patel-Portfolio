@@ -20,7 +20,7 @@ export default function AboutMe() {
         }
         return {};
       })
-      .then((data) => {
+      .then((data: any) => {
         setServerImages({
           formalUrl: data?.formalUrl || null,
           casualUrl: data?.casualUrl || null
