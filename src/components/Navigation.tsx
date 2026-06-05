@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Menu, X, ArrowUpRight, Linkedin, Github } from "lucide-react";
+import { Menu, X, ArrowUpRight, Linkedin, Github, Sun, Moon } from "lucide-react";
 import { PERSONAL_INFO } from "../data";
 
 interface NavigationProps {
@@ -22,6 +22,12 @@ const SECTIONS = [
 export default function Navigation({ activeSection }: NavigationProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [theme, setTheme] = useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("theme") || "light";
+    }
+    return "light";
+  });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,6 +36,20 @@ export default function Navigation({ activeSection }: NavigationProps) {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    const root = window.document.documentElement;
+    if (theme === "dark") {
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+    }
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+  };
 
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
@@ -99,6 +119,20 @@ export default function Navigation({ activeSection }: NavigationProps) {
 
           {/* Action Button & Social Links */}
           <div className="hidden lg:flex items-center gap-4">
+            {/* Theme Toggle Switcher */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-lg bg-[#FAF9F6] hover:bg-[#F5F2EB]/80 border border-[#C5A85C]/20 hover:border-[#C5A85C]/50 transition-all cursor-pointer flex items-center justify-center shadow-sm"
+              aria-label="Toggle theme mode"
+              id="theme-toggler-btn"
+            >
+              {theme === "dark" ? (
+                <Sun className="w-4 h-4 text-[#C5A85C] animate-spin-slow" />
+              ) : (
+                <Moon className="w-4 h-4 text-[#0B192C]" />
+              )}
+            </button>
+
             <div className="flex items-center gap-3 border-r border-[#C5A85C]/20 pr-4">
               <a
                 href={PERSONAL_INFO.githubUrl}
@@ -185,6 +219,25 @@ export default function Navigation({ activeSection }: NavigationProps) {
               </div>
 
               <div className="mt-auto flex flex-col gap-3">
+                {/* Mobile Theme Toggle Row */}
+                <div className="flex items-center justify-between p-3 bg-[#F5F2EB]/50 rounded-xl border border-[#C5A85C]/20 mb-2">
+                  <span className="font-display text-xs font-bold text-[#0B192C] uppercase tracking-wider">
+                    {theme === "dark" ? "Dark Theme" : "Light Theme"}
+                  </span>
+                  <button
+                    onClick={toggleTheme}
+                    className="p-2 rounded-lg bg-[#0B192C] text-[#C5A85C] transition-all cursor-pointer flex items-center justify-center shadow-sm"
+                    aria-label="Toggle mobile theme mode"
+                    id="theme-toggler-mobile-btn"
+                  >
+                    {theme === "dark" ? (
+                      <Sun className="w-4 h-4 text-[#C5A85C]" />
+                    ) : (
+                      <Moon className="w-4 h-4 text-white" />
+                    )}
+                  </button>
+                </div>
+
                 <button
                   onClick={() => scrollToSection("contact")}
                   id="nav-cta-mobile"

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Mail, Phone, MapPin, Linkedin, Github, Send, Sparkles, CheckCircle2, RotateCcw, Loader2 } from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin, Github, Send, Sparkles, CheckCircle2, RotateCcw, Loader2, Copy } from "lucide-react";
 import { PERSONAL_INFO } from "../data";
 
 export default function Contact() {
   const [formDone, setFormDone] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [copied, setCopied] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -21,6 +22,16 @@ export default function Contact() {
     }, 1200);
     return () => clearTimeout(timer);
   }, []);
+
+  // Clear copied tooltip after delay
+  useEffect(() => {
+    if (copied) {
+      const timer = setTimeout(() => {
+        setCopied(false);
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [copied]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -287,26 +298,58 @@ export default function Contact() {
 
               {/* Information Rows: slides slightly right on hover with color shifts */}
               <div className="space-y-7" id="contact-channels-deck">
-                {/* Row 1: Email */}
-                <motion.a
-                  href={`mailto:${PERSONAL_INFO.emailId}`}
-                  whileHover={{ x: 6 }}
-                  transition={{ duration: 0.2 }}
-                  className="flex items-center gap-4.5 p-3.5 bg-white/5 hover:bg-white/10 rounded-2xl border border-white/5 transition-all group cursor-pointer"
-                  id="channel-email-row"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-[#C5A85C] group-hover:text-emerald-400 group-hover:scale-110 transition-all border border-white/10 shadow-sm">
-                    <Mail className="w-5 h-5" />
+                {/* Row 1: Email Row layout with absolute copy button support */}
+                <div className="relative flex items-center group/email" id="channel-email-container">
+                  <motion.a
+                    href={`mailto:${PERSONAL_INFO.emailId}`}
+                    whileHover={{ x: 6 }}
+                    transition={{ duration: 0.2 }}
+                    className="flex-1 flex items-center gap-4.5 p-3.5 pr-14 bg-white/5 hover:bg-white/10 rounded-2xl border border-white/5 transition-all group cursor-pointer"
+                    id="channel-email-row"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-[#C5A85C] group-hover:text-emerald-400 group-hover:scale-110 transition-all border border-white/10 shadow-sm">
+                      <Mail className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <span className="font-mono text-[9px] text-[#FAF9F6]/50 block uppercase tracking-wider">
+                        Send Direct Email
+                      </span>
+                      <span className="font-sans text-xs sm:text-sm font-semibold text-[#FAF9F6] group-hover:text-[#C5A85C] transition-colors break-all">
+                        {PERSONAL_INFO.emailId}
+                      </span>
+                    </div>
+                  </motion.a>
+
+                  {/* Copy Trigger */}
+                  <div className="absolute right-3.5 top-1/2 -translate-y-1/2 z-10 flex items-center">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        navigator.clipboard.writeText(PERSONAL_INFO.emailId);
+                        setCopied(true);
+                      }}
+                      className="p-2.5 bg-white/10 hover:bg-white/20 active:bg-[#C5A85C] text-[#C5A85C] hover:text-white active:text-[#0B192C] rounded-xl border border-white/10 transition-all cursor-pointer relative shadow-sm"
+                      id="btn-copy-email"
+                      title="Copy Email"
+                    >
+                      <Copy className="w-4 h-4" />
+                      
+                      <AnimatePresence>
+                        {copied && (
+                          <motion.span
+                            initial={{ opacity: 0, scale: 0.85, y: 10 }}
+                            animate={{ opacity: 1, scale: 1, y: -45 }}
+                            exit={{ opacity: 0, scale: 0.85, y: -10 }}
+                            className="absolute right-0 bg-[#C5A85C] text-[#0B192C] text-[10px] font-mono font-black uppercase tracking-wider px-2 py-1 rounded shadow-lg pointer-events-none whitespace-nowrap z-50 border border-white/20"
+                          >
+                            Copied!
+                          </motion.span>
+                        )}
+                      </AnimatePresence>
+                    </button>
                   </div>
-                  <div>
-                    <span className="font-mono text-[9px] text-[#FAF9F6]/50 block uppercase tracking-wider">
-                      Send Direct Email
-                    </span>
-                    <span className="font-sans text-xs sm:text-sm font-semibold text-[#FAF9F6] group-hover:text-[#C5A85C] transition-colors break-all">
-                      {PERSONAL_INFO.emailId}
-                    </span>
-                  </div>
-                </motion.a>
+                </div>
 
                 {/* Row 2: Phone */}
                 <motion.a

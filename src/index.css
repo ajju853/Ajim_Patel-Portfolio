@@ -13,6 +13,9 @@
   --color-gold-satin: #C5A85C;
   --color-gold-bright: #D4AF37;
   --color-charcoal: #1E2229;
+
+  /* Custom animations */
+  --animate-spin-slow: spin 10s linear infinite;
 }
 
 @layer base {
@@ -147,3 +150,141 @@
     display: block !important;
   }
 }
+
+/* ==========================================================================
+   Tailwind CSS v4 Dark Mode Variant Override & Custom Global Dark Utilities
+   ========================================================================== */
+@variant dark (&:where(.dark, .dark *));
+
+/* Micro-transitions on global background/theme color adjustments */
+html, body {
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* Custom dark mode specifications */
+.dark {
+  background-color: #07111E !important;
+  color: #FAF9F6 !important;
+}
+
+.dark html, .dark body, .dark #root {
+  background-color: #07111E !important;
+  color: #FAF9F6 !important;
+}
+
+/* Segment color overrides */
+.dark section {
+  background-color: #07111E !important;
+}
+
+.dark section#projects {
+  background-color: #0A1828 !important;
+}
+
+.dark section#contact {
+  background-color: #07111E !important;
+}
+
+.dark section#about {
+  background-color: #07111E !important;
+}
+
+.dark section#experience {
+  background-color: #0A1828 !important;
+}
+
+.dark section#skills {
+  background-color: #07111E !important;
+}
+
+.dark section#education {
+  background-color: #0A1828 !important;
+}
+
+.dark section#certifications {
+  background-color: #07111E !important;
+}
+
+.dark section#achievements {
+  background-color: #0A1828 !important;
+}
+
+/* Interactive elements dark adjustments */
+.dark .bg-white {
+  background-color: #112235 !important;
+}
+
+.dark .bg-\[\#FAF9F6\] {
+  background-color: #07111E !important;
+}
+
+.dark .bg-\[\#FAF9F6\]\/85 {
+  background-color: rgba(7, 17, 30, 0.85) !important;
+}
+
+.dark .bg-\[\#F5F2EB\] {
+  background-color: #0A1828 !important;
+}
+
+.dark .bg-\[\#FFFDF9\] {
+  background-color: #112235 !important;
+}
+
+.dark .text-\[\#0B192C\] {
+  color: #FAF9F6 !important;
+}
+
+.dark .text-\[\#0B192C\]\/80 {
+  color: rgba(250, 249, 246, 0.80) !important;
+}
+
+.dark .text-\[\#0B192C\]\/70 {
+  color: rgba(250, 249, 246, 0.70) !important;
+}
+
+.dark .text-\[\#0B192C\]\/60 {
+  color: rgba(250, 249, 246, 0.60) !important;
+}
+
+.dark .text-\[\#0B192C\]\/50 {
+  color: rgba(250, 249, 246, 0.50) !important;
+}
+
+.dark .text-\[\#0B192C\]\/40 {
+  color: rgba(250, 249, 246, 0.40) !important;
+}
+
+.dark .border-\[\#0B192C\]\/5 {
+  border-color: rgba(250, 249, 246, 0.08) !important;
+}
+
+.dark .border-\[\#0B192C\]\/10 {
+  border-color: rgba(250, 249, 246, 0.12) !important;
+}
+
+.dark .border-\[\#0B192C\]\/15 {
+  border-color: rgba(250, 249, 246, 0.18) !important;
+}
+
+/* Glass header scroll container */
+.dark header {
+  border-color: rgba(197, 168, 92, 0.3) !important;
+}
+
+.dark #contact-form-card {
+  background-color: #112235 !important;
+  border-color: rgba(250, 249, 246, 0.1) !important;
+}
+
+.dark .floating-input:focus ~ label,
+.dark .floating-input:not(:placeholder-shown) ~ label {
+  color: #C5A85C !important;
+}
+
+/* Auto-fills inside dark elements */
+.dark input:-webkit-autofill,
+.dark textarea:-webkit-autofill {
+  -webkit-text-fill-color: #FAF9F6 !important;
+  -webkit-box-shadow: 0 0 0px 1000px #112235 inset !important;
+}
+
