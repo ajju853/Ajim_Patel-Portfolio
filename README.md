@@ -1,17 +1,17 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=180&section=header&text=Ajim%20Patel&fontSize=42&fontColor=fff&animation=twinkling&fontAlignY=32&desc=Full%20Stack%20Developer%20%7C%20Building%20Digital%20Experiences&descAlignY=52&descAlign=50" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=180&section=header&text=Ajim%20Patel&fontSize=42&fontColor=fff&animation=twinkling&fontAlignY=32&desc=Applied+AI+Engineer+%7C+Agentic+Systems+%7C+Full+Stack&descAlignY=52&descAlign=50" width="100%"/>
 
 <br/>
 
-[![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=22&duration=3000&pause=1000&color=6366F1&center=true&vCenter=true&multiline=true&width=600&height=80&lines=Full+Stack+Developer+%F0%9F%9A%80;React+%7C+TypeScript+%7C+Tailwind+CSS;Turning+Ideas+Into+Reality%2C+One+Line+at+a+Time)](https://git.io/typing-svg)
+[![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=20&duration=3000&pause=1000&color=6366F1&center=true&vCenter=true&multiline=true&width=700&height=80&lines=Building+Agentic+AI+Systems+%F0%9F%A4%96;LangChain+%7C+LLM+Fine-Tuning+%7C+Multimodal+AI;Production+Backend+Engineer+%7C+Pune%2C+India)](https://git.io/typing-svg)
 
 <br/>
 
-[![Portfolio](https://img.shields.io/badge/🌐_Live_Portfolio-Visit_Now-6366F1?style=for-the-badge&logoColor=white)](https://ajimpatelportfolio.ajimp340.workers.dev/)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/ajimpatel)
+[![Portfolio](https://img.shields.io/badge/🌐_Portfolio-Visit_Now-6366F1?style=for-the-badge&logoColor=white)](https://ajimpatelportfolio.ajimp340.workers.dev/)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ajim-patel-b359192ab/)
 [![GitHub](https://img.shields.io/badge/GitHub-Follow-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ajju853)
-[![Email](https://img.shields.io/badge/Email-Hire_Me-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:ajimpatel@email.com)
+[![Email](https://img.shields.io/badge/Email-Hire_Me-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:ajimp340@gmail.com)
 
 <br/>
 
@@ -21,15 +21,16 @@
 
 ## 👨‍💻 About Me
 
-> *"I don't just write code — I craft experiences that users love and businesses rely on."*
+> *"I don't just write code — I build systems that reason, automate, and earn trust at scale."*
 
-Hey! I'm **Ajim Patel**, a passionate **Full Stack Developer** from **Pune, India** 🇮🇳 with a love for building clean, performant, and scalable web applications. I specialize in crafting pixel-perfect UIs and pairing them with robust backends that stand up under pressure.
+Hey! I'm **Ajim Patel**, an **Applied AI Engineer** from **Pune, India** 🇮🇳 with hands-on experience building production-grade agentic AI systems, LLM workflows, and enterprise backend platforms. I specialize in connecting deep learning research with real production systems — fine-tuning models, optimizing prompts, and shipping trustworthy AI pipelines that actually work under load.
 
-- 🔭 Currently building: **My full-stack portfolio platform**
-- 🌱 Learning: **Advanced TypeScript patterns & System Design**
-- 💡 Passionate about: **UI/UX, performance optimization, and open source**
-- 🎯 Goal: **Build products that make a real difference**
+- 🔭 Currently building: **Agentic AI workflows with multimodal document understanding**
+- 🌱 Working on: **LLM fine-tuning (LoRA/SFT), GEPA-style prompt optimization, arXiv preprint**
+- 💡 Passionate about: **Trustworthy AI, automated investigation pipelines, and production ML**
+- 🎯 Goal: **Build AI systems that serve hundreds of millions of people reliably**
 - ⚡ Fun fact: I debug faster with lo-fi music playing 🎵
+- 🏅 Certified: **Oracle Cloud Infrastructure 2024 Foundations Associate**
 
 ---
 
@@ -39,59 +40,60 @@ Hey! I'm **Ajim Patel**, a passionate **Full Stack Developer** from **Pune, Indi
 <tr>
 <td width="50%" valign="top">
 
-### 🛒 Project One
-**[Live Demo](#) · [Source Code](#)**
+### 🤖 JobMatchAI — Agentic AI Workflow Engine
+**[Source Code](https://github.com/ajju853)**
 
-A full-stack e-commerce platform with real-time inventory, authentication, and Stripe payments.
+End-to-end agentic AI system with multi-step reasoning, multimodal document understanding (PDFs + HTML via Gemini Vision API), GEPA-style automated prompt optimization (+35% alignment), and Mistral-7B SFT via LoRA (NDCG@10: 0.61→0.74). Reduced manual investigation effort by **80%**.
 
-**Tech:** React · TypeScript · Node.js · MongoDB · Tailwind CSS
+**Tech:** Python · LangChain · OpenAI API · Gemini Vision · Mistral-7B · LoRA · FastAPI · Flask · PostgreSQL · Fernet
 
-![React](https://img.shields.io/badge/-React-61DAFB?style=flat-square&logo=react&logoColor=black)
-![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
-![Tailwind](https://img.shields.io/badge/-Tailwind-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)
+![Python](https://img.shields.io/badge/-Python-3776AB?style=flat-square&logo=python&logoColor=white)
+![LangChain](https://img.shields.io/badge/-LangChain-1C3C3C?style=flat-square&logo=langchain&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white)
 
 </td>
 <td width="50%" valign="top">
 
-### 💬 Project Two
-**[Live Demo](#) · [Source Code](#)**
+### ⚙️ HR Service Integration Engine
+**[Source Code](https://github.com/ajju853/HR-Service-Integration-Engine)**
 
-A real-time chat application with rooms, file sharing, and end-to-end encryption.
+Production enterprise integration platform using TIBCO BusinessWorks CE orchestrating a 7-step onboarding workflow across 4 Spring Boot microservices. Spring Cloud Gateway for routing + JWT/RBAC security + Docker Compose + GitHub Actions CI/CD.
 
-**Tech:** React · Socket.io · Express · PostgreSQL
+**Tech:** TIBCO BW CE · Java 17 · Spring Boot 3.2 · Spring Cloud Gateway · React 18 · PostgreSQL · Docker
 
-![React](https://img.shields.io/badge/-React-61DAFB?style=flat-square&logo=react&logoColor=black)
-![Node.js](https://img.shields.io/badge/-Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white)
+![Java](https://img.shields.io/badge/-Java-ED8B00?style=flat-square&logo=openjdk&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/-Spring_Boot-6DB33F?style=flat-square&logo=springboot&logoColor=white)
+![Docker](https://img.shields.io/badge/-Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
 
 </td>
 </tr>
 <tr>
 <td width="50%" valign="top">
 
-### 📊 Project Three
-**[Live Demo](#) · [Source Code](#)**
+### 📦 Kafka Event-Driven Order System
+**[Source Code](https://github.com/ajju853/Kafka-event-driven-order-system-architecture)**
 
-An analytics dashboard with data visualization, dark mode, and exportable reports.
+Production-grade event-driven microservices platform coordinating 7 independent services (Order, Inventory, Payment, Notification, Analytics, Audit, DLQ Replay) via Apache Kafka. Implements Transactional Outbox, Saga Pattern, Exponential Backoff, and OpenTelemetry tracing. Deployed on Kubernetes with HPA.
 
-**Tech:** React · TypeScript · Chart.js · REST API
+**Tech:** Node.js · TypeScript · Apache Kafka · PostgreSQL · Redis · Kubernetes · Next.js 14
 
+![Kafka](https://img.shields.io/badge/-Apache_Kafka-231F20?style=flat-square&logo=apachekafka&logoColor=white)
+![Kubernetes](https://img.shields.io/badge/-Kubernetes-326CE5?style=flat-square&logo=kubernetes&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
-![Chart.js](https://img.shields.io/badge/-Chart.js-FF6384?style=flat-square&logo=chartdotjs&logoColor=white)
-![Tailwind](https://img.shields.io/badge/-Tailwind-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)
 
 </td>
 <td width="50%" valign="top">
 
-### 🤖 Project Four
-**[Live Demo](#) · [Source Code](#)**
+### 🏭 LPS — Line Production System (CIE Automotive)
+**[Source Code](https://github.com/ajju853)**
 
-An AI-powered content generation tool with prompt engineering and response streaming.
+Full-stack ERP integration platform for an automotive manufacturing client spanning demand creation, BOM management, production tracking, and dispatch. Real-time OEE monitoring dashboard + sub-machine load-balancing logic using OOP and design patterns.
 
-**Tech:** React · TypeScript · Gemini API · Cloudflare Workers
+**Tech:** React · TypeScript · Flask · PostgreSQL · Redis · TanStack Query · Recharts
 
 ![React](https://img.shields.io/badge/-React-61DAFB?style=flat-square&logo=react&logoColor=black)
-![Cloudflare](https://img.shields.io/badge/-Cloudflare-F38020?style=flat-square&logo=cloudflare&logoColor=white)
+![Flask](https://img.shields.io/badge/-Flask-000000?style=flat-square&logo=flask&logoColor=white)
+![Redis](https://img.shields.io/badge/-Redis-DC382D?style=flat-square&logo=redis&logoColor=white)
 
 </td>
 </tr>
@@ -103,28 +105,40 @@ An AI-powered content generation tool with prompt engineering and response strea
 
 ## 🛠️ Tech Stack & Skills
 
+### 🤖 AI & Agentic Systems
+![LangChain](https://img.shields.io/badge/LangChain-1C3C3C?style=for-the-badge&logo=langchain&logoColor=white)
+![OpenAI](https://img.shields.io/badge/OpenAI_API-412991?style=for-the-badge&logo=openai&logoColor=white)
+![Gemini](https://img.shields.io/badge/Gemini_Vision_API-4285F4?style=for-the-badge&logo=google&logoColor=white)
+![HuggingFace](https://img.shields.io/badge/HuggingFace_PEFT-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black)
+
+### 🧠 ML & Deep Learning
+`Supervised Fine-Tuning (SFT)` · `LoRA / Q-LoRA` · `Few-Shot & Contrastive Learning` · `Prompt Optimization (GEPA)` · `Multimodal Fusion` · `NLP` · `Transformer Architectures` · `Model Evaluation`
+
+### Backend
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)
+![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+
 ### Frontend
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
-![Framer Motion](https://img.shields.io/badge/Framer_Motion-black?style=for-the-badge&logo=framer&logoColor=blue)
-
-### Backend
-![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
-![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white)
-![REST API](https://img.shields.io/badge/REST_API-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
 
 ### Database & Cloud
-![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
-![Cloudflare](https://img.shields.io/badge/Cloudflare-F38020?style=for-the-badge&logo=cloudflare&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
+![Redis](https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white)
+![Oracle](https://img.shields.io/badge/Oracle_Cloud-F80000?style=for-the-badge&logo=oracle&logoColor=white)
 
-### Tools & Workflow
-![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
-![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
-![VS Code](https://img.shields.io/badge/VS_Code-007ACC?style=for-the-badge&logo=visual-studio-code&logoColor=white)
-![Figma](https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)
+### DevOps & Tools
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white)
+![Apache Kafka](https://img.shields.io/badge/Apache_Kafka-231F20?style=for-the-badge&logo=apachekafka&logoColor=white)
 
 ---
 
@@ -147,16 +161,12 @@ An AI-powered content generation tool with prompt engineering and response strea
 
 ## 💼 Work Experience
 
-### 🏢 [Company Name] — Full Stack Developer
-**📅 Month Year – Present | 📍 Pune, India**
-- Built and shipped [X] production features used by [X] users
-- Improved page load performance by **40%** through code splitting and lazy loading
-- Collaborated with designers to implement pixel-perfect, accessible UI components
-
-### 🏢 [Company Name] — Frontend Developer Intern
-**📅 Month Year – Month Year | 📍 Remote**
-- Developed reusable component library reducing development time by **30%**
-- Integrated REST APIs and managed application state using React Query
+### 🏢 Nexvitech India Pvt Ltd — Software Engineer
+**📅 May 2025 – Present | 📍 Pune, India**
+- Developed and maintained **Python and Java backend services** for production ERP automation systems supporting manufacturing clients including Mahindra and Wipro
+- Designed a **6-role RBAC access control system** securing 40+ REST APIs, reducing unauthorized access incidents to **zero** across multi-tenant environments
+- Automated shift management workflows (queue processing, notifications, scheduling) via Python scripting — **cutting manual coordination effort by 60%**
+- Resolved concurrency and integration defects through systematic root-cause analysis; enforced Git-based CI/CD across all production releases
 
 ---
 
@@ -164,42 +174,21 @@ An AI-powered content generation tool with prompt engineering and response strea
 
 | Degree / Certificate | Institution | Year |
 |---|---|---|
-| 🎓 B.E. / B.Tech in Computer Science | [Your University] | 202X |
-| 📜 [Certification Name] | [Platform / Issuer] | 202X |
-| 📜 [Certification Name] | [Platform / Issuer] | 202X |
+| 🎓 Bachelor of Computer Applications (BCA) | Punyashlok Ahilyadevi Holkar Solapur University | 2025 (CGPA: 7.79/10) |
+| 📜 Oracle Cloud Infrastructure 2024 Certified Foundations Associate | Oracle | 2025 |
+| 📜 Google AI Essentials | Google | 2024 |
+| 📜 Career Essentials in Generative AI | Microsoft & LinkedIn | 2024 |
+| 📜 SQL (Advanced) | HackerRank | 2024 |
+| 📜 HackerRank Software Engineer Certificate | HackerRank | 2024 |
+| 📜 Advanced Software Engineering Job Simulation | Walmart USA (Forage) | 2024 |
 
 ---
 
-## 🏆 Achievements
+## 🏆 Research & Writing
 
-- 🥇 **[Hackathon / Award Name]** — [Brief description]
-- ⭐ **[Open Source Contribution]** — [Brief description]
-- 📝 **[Article / Talk / Recognition]** — [Brief description]
-
----
-
-## 🔧 Running This Portfolio Locally
-
-```bash
-# 1. Clone the repository
-git clone https://github.com/ajju853/Ajim_Patel-Portfolio.git
-
-# 2. Navigate into the project
-cd Ajim_Patel-Portfolio
-
-# 3. Install dependencies
-npm install
-
-# 4. Set up environment variables
-cp .env.example .env.local
-# Add your GEMINI_API_KEY to .env.local
-
-# 5. Start the development server
-npm run dev
-
-# 6. Open in browser
-# http://localhost:5173
-```
+- 📝 **JobMatchAI Technical Report** — Agentic AI system with GEPA prompt optimization (+35%), multimodal document fusion (91% F1 vs 67% baseline), and LoRA SFT on Mistral-7B (NDCG@10: 0.61→0.74). *arXiv preprint in preparation, 2025.*
+- 📖 **Technical Documentation** — Architecture reports, sequence diagrams, API contract documentation, and model evaluation reports across multiple production projects
+- 🌐 **Research Interests** — Agentic AI, Multimodal Representation Learning, LLM Fine-Tuning, Trustworthy AI, Vision-Language Models
 
 ---
 
@@ -207,17 +196,16 @@ npm run dev
 
 <div align="center">
 
-I'm always open to **exciting opportunities**, **collaborations**, or just a good tech conversation.
+I'm always open to **exciting opportunities**, **research collaborations**, or just a good conversation about AI systems and production engineering.
 
 [![Portfolio](https://img.shields.io/badge/🌐_Portfolio-ajimpatelportfolio.ajimp340.workers.dev-6366F1?style=for-the-badge)](https://ajimpatelportfolio.ajimp340.workers.dev/)
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Ajim_Patel-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/ajimpatel)
-[![Email](https://img.shields.io/badge/Email-ajimpatel@email.com-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:ajimpatel@email.com)
-[![Twitter](https://img.shields.io/badge/Twitter-@ajimpatel-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/ajimpatel)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Ajim_Patel-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ajim-patel-b359192ab/)
+[![Email](https://img.shields.io/badge/Email-ajimp340@gmail.com-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:ajimp340@gmail.com)
 
 <br/>
 
-**💬 "The best error message is the one that never shows up." — Thomas Fuchs**
+**💬 "The best system is one that earns trust without being asked to." — Ajim Patel**
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=100&section=footer" width="100%"/>
 
