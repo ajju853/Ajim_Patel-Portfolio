@@ -337,12 +337,26 @@ async function startServer() {
 
   // API Route: Checks if uploaded photos exist on local disk and provides active links to the client
   app.get("/api/images", (req, res) => {
-    const formalExists = fs.existsSync(path.join(uploadsPath, "formal-upload.png"));
-    const casualExists = fs.existsSync(path.join(uploadsPath, "casual-upload.png"));
+    let formalUrl: string | null = null;
+    let casualUrl: string | null = null;
+
+    if (fs.existsSync(path.join(uploadsPath, "formal-upload.jpg"))) {
+      formalUrl = `/uploads/formal-upload.jpg?t=${Date.now()}`;
+    } else if (fs.existsSync(path.join(uploadsPath, "formal-upload.png"))) {
+      formalUrl = `/uploads/formal-upload.png?t=${Date.now()}`;
+    }
+
+    if (fs.existsSync(path.join(uploadsPath, "casual-upload.webp"))) {
+      casualUrl = `/uploads/casual-upload.webp?t=${Date.now()}`;
+    } else if (fs.existsSync(path.join(uploadsPath, "casual-upload.jpg"))) {
+      casualUrl = `/uploads/casual-upload.jpg?t=${Date.now()}`;
+    } else if (fs.existsSync(path.join(uploadsPath, "casual-upload.png"))) {
+      casualUrl = `/uploads/casual-upload.png?t=${Date.now()}`;
+    }
 
     res.json({
-      formalUrl: formalExists ? `/uploads/formal-upload.png?t=${Date.now()}` : null,
-      casualUrl: casualExists ? `/uploads/casual-upload.png?t=${Date.now()}` : null,
+      formalUrl,
+      casualUrl,
     });
   });
 
@@ -390,18 +404,38 @@ async function startServer() {
 
       // Check and strip standard header if included (e.g. "data:image/png;base64, ...")
       let base64Data = imageStr;
+      let extension = "png";
       const matches = imageStr.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
       if (matches && matches.length === 3) {
+        const mime = matches[1];
+        if (mime === "image/jpeg" || mime === "image/jpg") {
+          extension = "jpg";
+        } else if (mime === "image/webp") {
+          extension = "webp";
+        } else if (mime === "image/gif") {
+          extension = "gif";
+        } else if (mime === "image/png") {
+          extension = "png";
+        }
         base64Data = matches[2];
       }
 
       const buffer = Buffer.from(base64Data, "base64");
-      const filename = `${type}-upload.png`;
+      const filename = `${type}-upload.${extension}`;
       const targetFilePath = path.join(uploadsPath, filename);
 
       // Persist the binary file on the workspace filesystem permanently
       fs.writeFileSync(targetFilePath, buffer);
       console.log(`Image written successfully: ${targetFilePath}`);
+
+      // If we upload a new image, delete other old extension types to avoid duplicate checks in get /api/images
+      const otherExtensions = ["jpg", "png", "webp", "gif"].filter(ext => ext !== extension);
+      otherExtensions.forEach(ext => {
+        const oldFile = path.join(uploadsPath, `${type}-upload.${ext}`);
+        if (fs.existsSync(oldFile)) {
+          try { fs.unlinkSync(oldFile); } catch (e) {}
+        }
+      });
 
       return res.json({
         success: true,

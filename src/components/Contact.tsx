@@ -19,11 +19,17 @@ export default function Contact() {
 
   useEffect(() => {
     fetch("/api/images")
-      .then((res) => res.json())
+      .then((res) => {
+        const ct = res.headers.get("content-type");
+        if (ct && ct.includes("application/json")) {
+          return res.json();
+        }
+        return {};
+      })
       .then((data) => {
-        if (data.formalUrl) {
+        if (data?.formalUrl) {
           setLogoUrl(data.formalUrl);
-        } else if (data.casualUrl) {
+        } else if (data?.casualUrl) {
           setLogoUrl(data.casualUrl);
         }
       })

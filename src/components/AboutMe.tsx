@@ -13,11 +13,17 @@ export default function AboutMe() {
 
   useEffect(() => {
     fetch("/api/images")
-      .then((res) => res.json())
+      .then((res) => {
+        const ct = res.headers.get("content-type");
+        if (ct && ct.includes("application/json")) {
+          return res.json();
+        }
+        return {};
+      })
       .then((data) => {
         setServerImages({
-          formalUrl: data.formalUrl || null,
-          casualUrl: data.casualUrl || null
+          formalUrl: data?.formalUrl || null,
+          casualUrl: data?.casualUrl || null
         });
       })
       .catch((err) => {
