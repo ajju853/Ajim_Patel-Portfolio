@@ -49,6 +49,21 @@ export const PROJECTS_LIST: Project[] = [
     githubUrl: "https://github.com/ajju853"
   },
   {
+    id: "proj_kafka",
+    title: "Kafka Event-Driven Order System",
+    type: "Event-Driven Microservices Platform",
+    duration: "Jan 2025 - Mar 2025",
+    description: "Designed and implemented an advanced, high-throughput event-driven microservices architecture to process and reconcile purchase orders through multi-partitioned Apache Kafka clusters.",
+    keyOutcomes: [
+      "Configured multi-broker Apache Kafka clusters with key-based routing, partition allocation strategies, and custom serialization formats to handle high-velocity asynchronous traffic streams.",
+      "Developed decoupled, resilient Spring Boot services (Order, Inventory, Notification, Payment) using Kafka producers/consumers, integrating solid idempotency guards to safeguard transaction consistency.",
+      "Designed robust Dead Letter Queues (DLQ) and transactional Outbox patterns to isolate failed events, handle boundary network interruptions, and guarantee consistent data synchronization.",
+      "Containerized all services and Kafka/Zookeeper nodes via Docker Compose, designing load benchmarks that verified linear system routing performance."
+    ],
+    technologies: ["Apache Kafka", "Java 17", "Spring Boot", "Docker Compose", "PostgreSQL", "Zookeeper", "Confluent Schema Registry"],
+    githubUrl: "https://github.com/ajju853/Kafka-event-driven-order-system-architecture"
+  },
+  {
     id: "proj_2",
     title: "LPS – Line Production System",
     type: "ERP Integration Platform (CIE Automotive)",
@@ -293,6 +308,6 @@ export const ACHIEVEMENTS_LIST: Achievement[] = [
 export const STATS = [
   { value: "1+", label: "Years Experience" },
   { value: "10", label: "Certifications" },
-  { value: "4", label: "Core Projects" },
+  { value: "5", label: "Core Projects" },
   { value: "4", label: "Key Achievements" }
 ];

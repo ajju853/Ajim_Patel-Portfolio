@@ -290,7 +290,10 @@ export default function GithubCalendar() {
               <img
                 src={stats.avatar_url}
                 alt={stats.name}
-                className="w-6 h-6 rounded-full border border-[#C5A85C]"
+                className="w-6 h-6 rounded-full border border-[#C5A85C] aspect-square"
+                loading="lazy"
+                width={24}
+                height={24}
                 referrerPolicy="no-referrer"
               />
             )}

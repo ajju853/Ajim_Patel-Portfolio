@@ -1,10 +1,75 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Compass, Eye, Briefcase, GraduationCap, FolderCode, Sliders, Award, ChevronRight, Sparkles, Layers } from "lucide-react";
 import { PERSONAL_INFO } from "../data";
+import { formalProfileBase64, casualProfileBase64 } from "../profile_base64";
 
 export default function AboutMe() {
   const [profileMode, setProfileMode] = useState<"formal" | "casual">("formal");
+  const [serverImages, setServerImages] = useState<{ formalUrl: string | null; casualUrl: string | null }>({
+    formalUrl: null,
+    casualUrl: null
+  });
+
+  useEffect(() => {
+    fetch("/api/images")
+      .then((res) => res.json())
+      .then((data) => {
+        setServerImages({
+          formalUrl: data.formalUrl || null,
+          casualUrl: data.casualUrl || null
+        });
+      })
+      .catch((err) => {
+        console.warn("Failed to fetch custom uploaded images from backend:", err);
+      });
+  }, []);
+
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+
+  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    setUploadError(null);
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64Str = reader.result as string;
+      fetch("/api/upload-image", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: profileMode,
+          imageStr: base64Str
+        })
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setUploading(false);
+          if (data.success) {
+            setServerImages((prev) => ({
+              ...prev,
+              [profileMode === "formal" ? "formalUrl" : "casualUrl"]: data.imageUrl
+            }));
+          } else {
+            setUploadError(data.error || "Upload failed");
+          }
+        })
+        .catch((err) => {
+          setUploading(false);
+          setUploadError("Server connection error");
+          console.error("Failed to upload portrait image to server:", err);
+        });
+    };
+    reader.onerror = () => {
+      setUploading(false);
+      setUploadError("Failed to read image file");
+    };
+    reader.readAsDataURL(file);
+  };
 
   const profileVariants = {
     hidden: { x: -60, opacity: 0 },
@@ -69,9 +134,9 @@ export default function AboutMe() {
     { id: "certifications", label: "Certifications", icon: Award }
   ];
 
-  // Permanent premium customized avatars representing his formal portrait and developer mode
-  const formalImgUrl = "/uploads/formal-upload.png"; // His personal crisp professional corporate suit portrait
-  const casualImgUrl = "/uploads/casual-upload.png"; // His developer workspace look with monitor background
+  // Fallbacks for profile pictures if no custom upload is available
+  const fallbackFormalUrl = "https://images.unsplash.com/photo-1560250097-0b93528c311a?fit=crop&w=600&h=800&q=80"; // Premium corporate suit portrait
+  const fallbackCasualUrl = "https://images.unsplash.com/photo-1531403009284-440f080d1e12?fit=crop&w=600&h=800&q=80"; // Premium workspace software developer look
 
   return (
     <section
@@ -120,17 +185,75 @@ export default function AboutMe() {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 1.05 }}
                     transition={{ duration: 0.35, ease: "easeInOut" }}
-                    className="absolute inset-0 w-full h-full"
+                    className="absolute inset-0 w-full h-full flex items-center justify-center bg-[#07111E]"
                   >
-                    <img
-                      src={profileMode === "formal" ? formalImgUrl : casualImgUrl}
-                      alt={profileMode === "formal" ? "Ajim Patel Formal Portrait" : "Ajim Patel Developer Look"}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      referrerPolicy="no-referrer"
-                    />
+                    {profileMode === "formal" ? (
+                      <div className="relative w-full h-full group/photo">
+                        <img
+                          src={serverImages.formalUrl || formalProfileBase64}
+                          alt="Ajim Patel Corporate Portrait"
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          referrerPolicy="no-referrer"
+                          loading="lazy"
+                          width={480}
+                          height={640}
+                        />
+                        <label className="absolute inset-0 bg-[#0B192C]/70 opacity-0 group-hover/photo:opacity-100 flex flex-col items-center justify-center gap-2 cursor-pointer transition-opacity duration-350 z-30">
+                          <Compass className="w-8 h-8 text-[#C5A85C] animate-spin-slow" />
+                          <span className="font-mono text-[10px] tracking-widest text-[#FAF9F6] uppercase font-bold">Replace Suit Photo</span>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handlePhotoUpload}
+                            className="hidden"
+                          />
+                        </label>
+                      </div>
+                    ) : (
+                      <div className="relative w-full h-full group/photo">
+                        <img
+                          src={serverImages.casualUrl || casualProfileBase64}
+                          alt="Ajim Patel Dev Avatar"
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          referrerPolicy="no-referrer"
+                          loading="lazy"
+                          width={480}
+                          height={640}
+                        />
+                        <label className="absolute inset-0 bg-[#0B192C]/70 opacity-0 group-hover/photo:opacity-100 flex flex-col items-center justify-center gap-2 cursor-pointer transition-opacity duration-350 z-30">
+                          <Layers className="w-8 h-8 text-[#C5A85C] animate-pulse" />
+                          <span className="font-mono text-[10px] tracking-widest text-[#FAF9F6] uppercase font-bold">Replace Dev Photo</span>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handlePhotoUpload}
+                            className="hidden"
+                          />
+                        </label>
+                      </div>
+                    )}
                     
-                    {/* Dark gradient overlay for modern look */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0B192C] via-transparent to-black/30 opacity-70 group-hover:opacity-60 transition-opacity" />
+                    {/* Uploading loading and error indicators */}
+                    {uploading && (
+                      <div className="absolute inset-0 bg-[#0B192C]/95 backdrop-blur-sm flex flex-col items-center justify-center gap-3 z-40">
+                        <div className="w-8 h-8 border-2 border-[#C5A85C]/30 border-t-[#C5A85C] rounded-full animate-spin" />
+                        <span className="font-mono text-[10px] tracking-widest text-[#C5A85C] uppercase font-bold">Uploading Portrait...</span>
+                      </div>
+                    )}
+                    {uploadError && (
+                      <div className="absolute inset-x-0 top-14 bg-red-900/90 backdrop-blur-sm border-y border-red-500/30 p-2 flex flex-col items-center justify-center gap-1 z-40">
+                        <span className="font-sans text-[10px] text-red-200 text-center font-semibold">{uploadError}</span>
+                        <button 
+                          onClick={() => setUploadError(null)}
+                          className="text-[9px] font-mono text-[#FAF9F6] underline uppercase"
+                        >
+                          Dismiss
+                        </button>
+                      </div>
+                    )}
+                    
+                    {/* Subtle aesthetic overlay ring */}
+                    <div className="absolute inset-0 border border-[#C5A85C]/10 pointer-events-none rounded-[22px]" />
                   </motion.div>
                 </AnimatePresence>
 

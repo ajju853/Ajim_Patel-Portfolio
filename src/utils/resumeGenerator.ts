@@ -1,6 +1,6 @@
 import { jsPDF } from "jspdf";
 
-export function generateResumePDF() {
+export function generateResumePDF(asDataUri = false): string | void {
   // Create an A4 PDF document (portrait, mm, a4)
   const doc = new jsPDF({
     orientation: "portrait",
@@ -56,13 +56,28 @@ export function generateResumePDF() {
     // Draw bullet character
     doc.text("•", leftMargin + bulletIndent, currentY);
     
-    // Wrap text to width of 165mm
+    // Wrap text to width of content
     const maxTextWidth = contentWidth - textIndent;
     const lines = doc.splitTextToSize(text, maxTextWidth);
     
     doc.text(lines, leftMargin + textIndent, currentY);
     // Return next y line position calculating times line height (~4.2mm per line)
     return currentY + (lines.length * 4.2) + 1;
+  };
+
+  // Helper function to draw skill pairs
+  const skillPairDraw = (label: string, value: string, currentY: number) => {
+    doc.setFont("times", "bold");
+    doc.setFontSize(9.5);
+    doc.setTextColor(11, 25, 44);
+    doc.text(label + ": ", leftMargin, currentY);
+    
+    doc.setFont("times", "normal");
+    doc.setTextColor(17, 17, 17);
+    const labelWidth = doc.getTextWidth(label + ": ");
+    const wrappedValue = doc.splitTextToSize(value, contentWidth - labelWidth - 2);
+    doc.text(wrappedValue, leftMargin + labelWidth + 1, currentY);
+    return currentY + (wrappedValue.length * 4.2) + 0.5;
   };
 
   // --- SECTION 1: Professional Summary ---
@@ -73,7 +88,7 @@ export function generateResumePDF() {
   const summaryParagraph = "Software Engineer with experience building enterprise backend systems, microservices, REST APIs, and workflow automation solutions using Java, Spring Boot, Python, and Flask. Developed a production-style enterprise integration platform using TIBCO BusinessWorks CE, Spring Cloud Gateway, JWT security, Docker, and PostgreSQL to orchestrate business workflows across distributed services. Experienced in ERP-focused application development, API integration, production support, troubleshooting, CI/CD, and distributed system design for manufacturing clients including Mahindra and Wipro. Oracle Cloud Infrastructure 2024 Certified.";
   const summaryLines = doc.splitTextToSize(summaryParagraph, contentWidth);
   doc.text(summaryLines, leftMargin, y);
-  y += (summaryLines.length * 4.2) + 6;
+  y += (summaryLines.length * 4.2) + 5;
 
   // --- SECTION 2: Projects ---
   y = drawSectionHeader("Projects", y);
@@ -83,7 +98,7 @@ export function generateResumePDF() {
   doc.setFontSize(10.5);
   doc.setTextColor(11, 25, 44);
   doc.text("HR Service Integration Engine", leftMargin, y);
-  doc.setFont("times", "bold");
+  doc.setFont("times", "normal");
   doc.text("GitHub", pageWidth - rightMargin, y, { align: "right" });
   y += 4;
 
@@ -113,13 +128,13 @@ export function generateResumePDF() {
     "Designed and documented end-to-end system architecture, service interaction flows, API contracts, deployment topology, and error-handling strategies using architecture diagrams, sequence diagrams, and technical documentation.",
     y
   );
-  y += 2.5;
+  y += 4.5;
 
-  // -- PROJECT 2: LPS – Line Production System
+  // -- PROJECT 2: LPS - Line Production System
   doc.setFont("times", "bold");
   doc.setFontSize(10.5);
   doc.setTextColor(11, 25, 44);
-  doc.text("LPS \u2013 Line Production System (CIE Automotive)", leftMargin, y);
+  doc.text("LPS – Line Production System (CIE Automotive)", leftMargin, y);
   doc.setFont("times", "normal");
   doc.text("github.com/ajju853", pageWidth - rightMargin, y, { align: "right" });
   y += 4;
@@ -131,7 +146,7 @@ export function generateResumePDF() {
   y += 4.5;
 
   y = drawBulletPoint(
-    "Built a full-stack ERP integration platform spanning demand creation, BOM management, production tracking, and dispatch \u2014 covering the complete manufacturing data integration lifecycle for an automotive client.",
+    "Built a full-stack ERP integration platform spanning demand creation, BOM management, production tracking, and dispatch — covering the complete manufacturing data integration lifecycle for an automotive client.",
     y
   );
   y = drawBulletPoint(
@@ -142,13 +157,13 @@ export function generateResumePDF() {
     "Implemented sub-machine load-balancing logic using OOP and design patterns to identify and resolve workflow bottlenecks, improving throughput predictability across production lines.",
     y
   );
-  y += 2.5;
+  y += 4.5;
 
-  // -- PROJECT 3: JobMatchAI – Automation Workflow Engine
+  // -- PROJECT 3: JobMatchAI
   doc.setFont("times", "bold");
   doc.setFontSize(10.5);
   doc.setTextColor(11, 25, 44);
-  doc.text("JobMatchAI \u2013 Automation Workflow Engine", leftMargin, y);
+  doc.text("JobMatchAI – Automation Workflow Engine", leftMargin, y);
   doc.setFont("times", "normal");
   doc.text("github.com/ajju853", pageWidth - rightMargin, y, { align: "right" });
   y += 4;
@@ -160,20 +175,20 @@ export function generateResumePDF() {
   y += 4.5;
 
   y = drawBulletPoint(
-    "Architected a modular, multi-service process automation workflow integrating LLM scoring, resume routing, and cross-platform job tracking \u2014 demonstrating enterprise integration and service orchestration patterns.",
+    "Architected a modular, multi-service process automation workflow integrating LLM scoring, resume routing, and cross-platform job tracking — demonstrating enterprise integration and service orchestration patterns.",
     y
   );
   y = drawBulletPoint(
     "Designed 60+ RESTful APIs across a Flask backend with a 7-tab monitoring dashboard; implemented unit and integration testing across automation pipeline stages. Reduced manual effort by 80%.",
     y
   );
-  y += 2.5;
+  y += 4.5;
 
-  // -- PROJECT 4: PGFlow – Multi-Tenant SaaS Platform
+  // -- PROJECT 4: PGFlow
   doc.setFont("times", "bold");
   doc.setFontSize(10.5);
   doc.setTextColor(11, 25, 44);
-  doc.text("PGFlow \u2013 Multi-Tenant SaaS Platform", leftMargin, y);
+  doc.text("PGFlow – Multi-Tenant SaaS Platform", leftMargin, y);
   doc.setFont("times", "normal");
   doc.text("github.com/ajju853", pageWidth - rightMargin, y, { align: "right" });
   y += 4;
@@ -188,31 +203,6 @@ export function generateResumePDF() {
     "Automated rent invoicing, utility splitting, and WhatsApp notification workflows via MSG91 API and Razorpay gateway; implemented Supabase Row-Level Security (RLS) for zero-leakage multi-tenant data isolation.",
     y
   );
-  y += 4;
-
-  // -- SECTION 3: Technical Skills (Part A - bottom of Page 1)
-  y = drawSectionHeader("Technical Skills", y);
-
-  const skillPairDraw = (label: string, value: string, currentY: number) => {
-    doc.setFont("times", "bold");
-    doc.setFontSize(9.5);
-    doc.setTextColor(11, 25, 44);
-    doc.text(label + ": ", leftMargin, currentY);
-    
-    doc.setFont("times", "normal");
-    doc.setTextColor(17, 17, 17);
-    const labelWidth = doc.getTextWidth(label + ": ");
-    const wrappedValue = doc.splitTextToSize(value, contentWidth - labelWidth - 2);
-    doc.text(wrappedValue, leftMargin + labelWidth + 1, currentY);
-    return currentY + (wrappedValue.length * 4.2) + 0.5;
-  };
-
-  y = skillPairDraw("Integration & Middleware", "TIBCO BusinessWorks CE, Service-Oriented Architecture (SOA), Enterprise Integration, REST API Integration, Swagger/OpenAPI, Postman, XML, JSON", y);
-  y = skillPairDraw("Backend Development", "Java, Spring Boot, Spring Security, Spring Data JPA, Hibernate, Spring Cloud Gateway, Microservices, REST APIs, Distributed Systems, Flask, FastAPI, Node.js, Express.js", y);
-  y = skillPairDraw("DevOps & Cloud", "Git, GitHub, Maven, Docker, CI/CD, Continuous Integration, Continuous Deployment, OCI Cloud, Linux, Agile/Scrum, SDLC", y);
-  y = skillPairDraw("Databases", "PostgreSQL, MySQL, MongoDB, Redis", y);
-  y = skillPairDraw("Security", "JWT, OAuth 2.0, RBAC, AES-256, Fernet Encryption", y);
-
 
   // -------------------------------------------------------------------------
   // PAGE 2
@@ -220,13 +210,19 @@ export function generateResumePDF() {
   doc.addPage();
   y = 16;
 
-  // Continue Technical Skills Part B on Page 2
+  // --- SECTION 3: Technical Skills ---
+  y = drawSectionHeader("Technical Skills", y);
+  y = skillPairDraw("Integration & Middleware", "TIBCO BusinessWorks CE, Service-Oriented Architecture (SOA), Enterprise Integration, REST API Integration, Swagger/OpenAPI, Postman, XML, JSON", y);
+  y = skillPairDraw("Backend Development", "Java, Spring Boot, Spring Security, Spring Data JPA, Hibernate, Spring Cloud Gateway, Microservices, REST APIs, Distributed Systems, Flask, FastAPI, Node.js, Express.js", y);
+  y = skillPairDraw("DevOps & Cloud", "Git, GitHub, Maven, Docker, CI/CD, Continuous Integration, Continuous Deployment, OCI Cloud, Linux, Agile/Scrum, SDLC", y);
+  y = skillPairDraw("Databases", "PostgreSQL, MySQL, MongoDB, Redis", y);
+  y = skillPairDraw("Security", "JWT, OAuth 2.0, RBAC, AES-256, Fernet Encryption", y);
   y = skillPairDraw("Languages", "Java, Python, JavaScript, TypeScript, Kotlin, SQL", y);
   y = skillPairDraw("Engineering Practices", "Object-Oriented Programming (OOP), Design Patterns, Multithreading, System Design, Unit Testing, Integration Testing, Code Reviews", y);
   y = skillPairDraw("Monitoring & Support", "Application Monitoring, Production Support, System Troubleshooting, Incident Resolution", y);
   y = skillPairDraw("Frontend", "React.js, Next.js, Tailwind CSS", y);
   y = skillPairDraw("AI/LLM", "LangChain, OpenAI API, Gemini API", y);
-  y += 5;
+  y += 4.5;
 
   // --- SECTION 4: Work Experience ---
   y = drawSectionHeader("Work Experience", y);
@@ -246,11 +242,11 @@ export function generateResumePDF() {
   y += 4.5;
 
   y = drawBulletPoint(
-    "Developed and maintained Spring Boot and Flask microservices for ERP applications supporting manufacturing operations for Mahindra and Wipro, contributing to stable production service delivery and workflow automation initiatives.",
+    "Developed and maintained secure Spring Boot and Flask microservices for ERP applications supporting manufacturing operations for Mahindra and Wipro, contributing to stable production service delivery and workflow automation initiatives.",
     y
   );
   y = drawBulletPoint(
-    "Designed a 6-role RBAC system and secured 40+ RESTful APIs using Flask-JWT-Extended, enforcing granular access control across multi-tenant environments \u2014 reducing unauthorized access incidents to zero.",
+    "Designed a 6-role RBAC system and secured 40+ RESTful APIs using Flask-JWT-Extended, enforcing granular access control across multi-tenant environments — reducing unauthorized access incidents to zero.",
     y
   );
   y = drawBulletPoint(
@@ -262,10 +258,10 @@ export function generateResumePDF() {
     y
   );
   y = drawBulletPoint(
-    "Enforced Git source code management best practices \u2014 branching strategies, PR review workflows, and deployment pipelines \u2014 ensuring audit-ready version control across all service releases.",
+    "Enforced Git source code management best practices — branching strategies, PR review workflows, and deployment pipelines — ensuring audit-ready version control across all service releases.",
     y
   );
-  y += 4;
+  y += 4.5;
 
   // --- SECTION 5: Education ---
   y = drawSectionHeader("Education", y);
@@ -281,8 +277,8 @@ export function generateResumePDF() {
   doc.setFontSize(9.5);
   doc.text("Punyashlok Ahilyadevi Holkar Solapur University", leftMargin, y);
   doc.setFont("times", "bold");
-  doc.text("CGPA: 7.79/10", pageWidth - rightMargin, y, { align: "right" });
-  y += 9;
+  doc.text("CGPA: 7.79 / 10.0", pageWidth - rightMargin, y, { align: "right" });
+  y += 8;
 
   // --- SECTION 6: Certifications ---
   y = drawSectionHeader("Certifications", y);
@@ -307,7 +303,7 @@ export function generateResumePDF() {
   y = drawCertificationRow("Career Essentials in Generative AI", "Microsoft & LinkedIn, 2024", y);
   y += 4;
 
-  // --- SECTION 7: Additional ---
+  // --- SECTION 7: Additional Details ---
   y = drawSectionHeader("Additional", y);
 
   doc.setFont("times", "bold");
@@ -326,6 +322,10 @@ export function generateResumePDF() {
   doc.setFont("times", "normal");
   doc.setTextColor(17, 17, 17);
   doc.text("Open Source Contribution, Technical Writing, Developer Mentoring", leftMargin + doc.getTextWidth("Interests: "), y);
+
+  if (asDataUri) {
+    return doc.output("datauristring");
+  }
 
   // Save the constructed high-fidelity PDF
   doc.save("Ajim_Patel_Resume.pdf");

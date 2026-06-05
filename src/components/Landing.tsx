@@ -1,10 +1,27 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { Github, Linkedin, Mail, ArrowRight, Download } from "lucide-react";
 import { PERSONAL_INFO } from "../data";
 import { generateResumePDF } from "../utils/resumeGenerator";
+import { formalProfileBase64 } from "../profile_base64";
 
 export default function Landing() {
+  const [logoUrl, setLogoUrl] = useState<string>(formalProfileBase64);
+
+  useEffect(() => {
+    fetch("/api/images")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.formalUrl) {
+          setLogoUrl(data.formalUrl);
+        } else if (data.casualUrl) {
+          setLogoUrl(data.casualUrl);
+        }
+      })
+      .catch((err) => {
+        console.warn("Could not retrieve custom logo image:", err);
+      });
+  }, []);
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -88,10 +105,15 @@ export default function Landing() {
           {/* Logo / Initials inside Antigravity container layout */}
           <motion.div
             variants={itemVariants}
-            className="w-16 h-16 rounded-2xl bg-[#0B192C] flex items-center justify-center text-[#C5A85C] font-display font-extrabold text-2xl border-2 border-[#C5A85C]/40 shadow-lg mb-6"
+            className="w-16 h-16 rounded-2xl bg-[#0B192C] flex items-center justify-center border-2 border-[#C5A85C]/40 shadow-lg mb-6 overflow-hidden"
             id="landing-logo"
           >
-            {PERSONAL_INFO.logoInitials}
+            <img
+              src={logoUrl}
+              alt={PERSONAL_INFO.logoInitials}
+              className="w-full h-full object-cover"
+              referrerPolicy="no-referrer"
+            />
           </motion.div>
 
           {/* Heading - Full Name */}

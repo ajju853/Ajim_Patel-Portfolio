@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X, ArrowUpRight, Linkedin, Github, Sun, Moon } from "lucide-react";
 import { PERSONAL_INFO } from "../data";
+import { formalProfileBase64 } from "../profile_base64";
 
 interface NavigationProps {
   activeSection: string;
@@ -11,6 +12,7 @@ const SECTIONS = [
   { id: "landing", label: "Intro" },
   { id: "about", label: "About" },
   { id: "experience", label: "Experience" },
+  { id: "resume-section", label: "Resume" },
   { id: "projects", label: "Projects" },
   { id: "skills", label: "Skills" },
   { id: "education", label: "Education" },
@@ -20,6 +22,7 @@ const SECTIONS = [
 ];
 
 export default function Navigation({ activeSection }: NavigationProps) {
+  const [logoUrl, setLogoUrl] = useState<string>(formalProfileBase64);
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [theme, setTheme] = useState(() => {
@@ -28,6 +31,21 @@ export default function Navigation({ activeSection }: NavigationProps) {
     }
     return "light";
   });
+
+  useEffect(() => {
+    fetch("/api/images")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.formalUrl) {
+          setLogoUrl(data.formalUrl);
+        } else if (data.casualUrl) {
+          setLogoUrl(data.casualUrl);
+        }
+      })
+      .catch((err) => {
+        console.warn("Could not retrieve custom logo image:", err);
+      });
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -78,8 +96,13 @@ export default function Navigation({ activeSection }: NavigationProps) {
             className="group flex items-center gap-3 cursor-pointer"
             id="nav-logo"
           >
-            <div className="w-10 h-10 rounded-lg bg-[#0B192C] flex items-center justify-center text-[#C5A85C] font-display font-bold text-lg border border-[#C5A85C]/30 group-hover:border-[#C5A85C] transition-colors shadow-sm">
-              {PERSONAL_INFO.logoInitials}
+            <div className="w-10 h-10 rounded-lg bg-[#0B192C] flex items-center justify-center border border-[#C5A85C]/30 group-hover:border-[#C5A85C] transition-colors shadow-sm overflow-hidden">
+              <img
+                src={logoUrl}
+                alt={PERSONAL_INFO.logoInitials}
+                className="w-full h-full object-cover"
+                referrerPolicy="no-referrer"
+              />
             </div>
             <div className="text-left hidden sm:block">
               <span className="block text-[#0B192C] font-display font-bold text-sm tracking-tight leading-none">

@@ -288,3 +288,26 @@ html, body {
   -webkit-box-shadow: 0 0 0px 1000px #112235 inset !important;
 }
 
+/* ==========================================================================
+   Smooth Butter Performance Enhancements (GPU acceleration & rendering speed)
+   ========================================================================== */
+section, .grid, .card, img, button {
+  transform: translate3d(0, 0, 0); /* Force GPU acceleration */
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Smooth motion performance hooks */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth !important;
+  }
+}
+
+/* Responsive render boosting container rules */
+#projects-grid > div {
+  content-visibility: auto; /* Defer offscreen rendering to speed up initial load */
+  contain-intrinsic-size: 0 500px; /* Pre-size the container spacer */
+}
+
+

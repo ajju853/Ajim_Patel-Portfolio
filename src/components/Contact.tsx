@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Mail, Phone, MapPin, Linkedin, Github, Send, Sparkles, CheckCircle2, RotateCcw, Loader2, Copy } from "lucide-react";
 import { PERSONAL_INFO } from "../data";
+import { formalProfileBase64 } from "../profile_base64";
 
 export default function Contact() {
+  const [logoUrl, setLogoUrl] = useState<string>(formalProfileBase64);
   const [formDone, setFormDone] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -14,6 +16,21 @@ export default function Contact() {
     subject: "",
     message: ""
   });
+
+  useEffect(() => {
+    fetch("/api/images")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.formalUrl) {
+          setLogoUrl(data.formalUrl);
+        } else if (data.casualUrl) {
+          setLogoUrl(data.casualUrl);
+        }
+      })
+      .catch((err) => {
+        console.warn("Could not retrieve custom logo image:", err);
+      });
+  }, []);
 
   // Pulse effect on send button after form finishes rendering
   useEffect(() => {
@@ -430,7 +447,14 @@ export default function Contact() {
         <footer className="mt-24 border-t border-[#0B192C]/10 pt-10 text-center" id="portfolio-footer">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-6">
             <div className="text-left bg-[#0B192C] text-[#FAF9F6] py-2 px-4 rounded-xl border border-[#C5A85C]/30 flex items-center gap-3">
-              <div className="font-display font-black text-[#C5A85C] text-sm tracking-wider">AP</div>
+              <div className="w-6 h-6 rounded-md overflow-hidden bg-white/10 flex items-center justify-center">
+                <img
+                  src={logoUrl}
+                  alt="AP"
+                  className="w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
               <div className="h-4 w-px bg-white/20" />
               <span className="text-xs font-mono tracking-widest text-[#FAF9F6]/80 uppercase">
                 2026 ARCHITECT VERSION

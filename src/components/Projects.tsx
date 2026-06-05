@@ -9,6 +9,8 @@ const getProjectImgUrl = (id: string) => {
   switch (id) {
     case "proj_1":
       return "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?fit=crop&w=600&h=800&q=80"; // Java / Developer Integration Coding Stack
+    case "proj_kafka":
+      return "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?fit=crop&w=600&h=800&q=80"; // Kafka event cluster data stream
     case "proj_2":
       return "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?fit=crop&w=600&h=800&q=80"; // Tech/Automotive robotic line production system
     case "proj_3":
@@ -20,8 +22,22 @@ const getProjectImgUrl = (id: string) => {
   }
 };
 
+const PROJECT_CATEGORIES: Record<string, string[]> = {
+  proj_1: ["Backend", "Cloud"],
+  proj_kafka: ["Backend", "Cloud", "Open Source"],
+  proj_2: ["Backend"],
+  proj_3: ["Backend", "Open Source"],
+  proj_4: ["Cloud"]
+};
+
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [activeCategory, setActiveCategory] = useState<"All" | "Backend" | "Cloud" | "Open Source">("All");
+
+  const filteredProjects = PROJECTS_LIST.filter((proj) => {
+    if (activeCategory === "All") return true;
+    return (PROJECT_CATEGORIES[proj.id] || []).includes(activeCategory);
+  });
 
   // Prevent scroll propagation when project modal is in view
   useEffect(() => {
@@ -99,9 +115,31 @@ export default function Projects() {
           </p>
         </div>
 
+        {/* Category Filters Switches */}
+        <div className="flex flex-wrap justify-center items-center gap-2.5 mb-14" id="projects-category-filters">
+          {(["All", "Backend", "Cloud", "Open Source"] as const).map((cat) => {
+            const isActive = activeCategory === cat;
+            return (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`px-5 py-2.5 rounded-xl font-display text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer shadow-sm ${
+                  isActive
+                    ? "bg-[#0B192C] text-[#C5A85C] border border-[#C5A85C]/30 scale-102"
+                    : "bg-white dark:bg-[#112235] text-[#0B192C]/80 dark:text-[#FAF9F6]/85 hover:bg-[#0B192C]/5 dark:hover:bg-white/5 border border-[#0B192C]/5 dark:border-white/10"
+                }`}
+                id={`filter-btn-${cat.toLowerCase().replace(/\s+/g, "-")}`}
+              >
+                {cat}
+              </button>
+            );
+          })}
+        </div>
+
         {/* Project List */}
         <div className="flex flex-col gap-12" id="projects-grid">
-          {PROJECTS_LIST.map((proj, projIdx) => {
+          {filteredProjects.map((proj) => {
+            const projIdx = PROJECTS_LIST.findIndex(p => p.id === proj.id);
             return (
               <div
                 key={proj.id}
@@ -123,7 +161,10 @@ export default function Projects() {
                     <img
                       src={getProjectImgUrl(proj.id)}
                       alt={proj.title}
-                      className="w-full h-full object-cover filter grayscale"
+                      className="w-full h-full object-cover filter grayscale aspect-[3/4]"
+                      loading="lazy"
+                      width={600}
+                      height={800}
                       referrerPolicy="no-referrer"
                     />
                     <div className="absolute inset-0 bg-[#0B192C]/70 mix-blend-multiply" />
@@ -319,7 +360,10 @@ export default function Projects() {
                     <img 
                       src={getProjectImgUrl(selectedProject.id)} 
                       alt="" 
-                      className="w-full h-full object-cover filter blur"
+                      className="w-full h-full object-cover filter blur aspect-[3/4]"
+                      loading="lazy"
+                      width={600}
+                      height={800}
                       referrerPolicy="no-referrer"
                     />
                   </div>
