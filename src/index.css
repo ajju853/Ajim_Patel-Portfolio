@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@300..700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* Custom palette colors */
+  --color-ivory: #FAF9F6;
+  --color-cream: #F5F2EB;
+  --color-prussian: #0B192C;
+  --color-gold-satin: #C5A85C;
+  --color-gold-bright: #D4AF37;
+  --color-charcoal: #1E2229;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-sans);
+    background-color: var(--color-ivory);
+    color: var(--color-prussian);
+    overflow-x: hidden;
+  }
+
+  body {
+    background-color: var(--color-ivory);
+    color: var(--color-prussian);
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  /* Custom gold scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #FAF9F6;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #C5A85C;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #0B192C;
+  }
+
+  /* Floating label and line animations for the form */
+  .floating-input:focus ~ label,
+  .floating-input:not(:placeholder-shown) ~ label {
+    transform: translateY(-1.5rem) scale(0.85);
+    color: #C5A85C;
+  }
+
+  .floating-input:focus ~ .input-border {
+    transform: scaleX(1);
+  }
+
+  /* Autofill styling overrides to keep clean professional forms */
+  input:-webkit-autofill,
+  textarea:-webkit-autofill,
+  input:-webkit-autofill:hover, 
+  input:-webkit-autofill:focus,
+  textarea:-webkit-autofill:hover,
+  textarea:-webkit-autofill:focus {
+    -webkit-text-fill-color: #0B192C !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    -webkit-box-shadow: 0 0 0px 1000px #FFFDF9 inset !important;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+}
+
+/* ==========================================================================
+   Print Media Queries for Elegant Offline CV/Resume Formatting
+   ========================================================================== */
+@media print {
+  body, html {
+    background: #ffffff !important;
+    color: #111111 !important;
+    font-size: 11pt !important;
+    font-family: inherit !important;
+    overflow: visible !important;
+  }
+
+  /* Hide custom navigation, sidebars, interactive controls, and decorative artifacts */
+  header,
+  footer,
+  #mobile-nav-toggle,
+  #landing-cta-container,
+  #landing-socials,
+  #contact-form-card,
+  #contact-social-linkedin,
+  #contact-social-github,
+  #about-profile-pic-container span,
+  button,
+  .pointer-events-none,
+  [role="tablist"],
+  svg {
+    display: none !important;
+  }
+
+  /* Neutralize all web-only background glows, radial gradients, and blurs */
+  [class*="bg-[radial-gradient]"],
+  [class*="bg-gradient-"],
+  [class*="blur-"],
+  [class*="shadow-"] {
+    background: none !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    filter: none !important;
+  }
+
+  /* Flat single-column readable structure */
+  main, section {
+    display: block !important;
+    padding: 0 !important;
+    margin: 0px 0px 24px 0px !important;
+    background: #ffffff !important;
+    color: #111111 !important;
+  }
+
+  /* Page breaks optimization for clean paper partitioning */
+  h1, h2, h3, h4, h5 {
+    page-break-after: avoid;
+    break-after: avoid;
+    color: #0b192c !important;
+  }
+
+  section, .card, .card-item, #contact-info-panel {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Reset high contrast elements to be soft printable greys */
+  .border, border-b, border-t {
+    border-color: #e5e7eb !important;
+  }
+
+  span, p, li, h3, h4 {
+    color: #111111 !important;
+  }
+
+  /* Flatten all grid wrappers during print out */
+  .grid {
+    display: block !important;
+  }
+}
